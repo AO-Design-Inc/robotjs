@@ -5,6 +5,6 @@
 FROM gitpod/workspace-full-vnc
 # Robot
 RUN sudo apt-get update && \
-    sudo DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends \
+    sudo DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
     libxtst-dev \
     libpng++-dev
