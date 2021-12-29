@@ -4,14 +4,12 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron --no-sandbox ."
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^16.0.5"
-  } ,
-  "scripts": {
-    "start": "electron --no-sandbox ."
+    "electron": "^16.0.5",
+    "electron-rebuild": "^3.2.5"
   }
 }

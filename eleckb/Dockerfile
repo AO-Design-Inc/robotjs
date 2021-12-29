@@ -32,4 +32,5 @@ RUN chown root /app/node_modules/electron/dist/chrome-sandbox
 RUN chmod 4755 /app/node_modules/electron/dist/chrome-sandbox
 
 USER node
-CMD bash
+#CMD bash
+CMD npm run start
