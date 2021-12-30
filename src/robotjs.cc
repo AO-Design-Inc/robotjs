@@ -483,12 +483,12 @@ int CheckKeyCodes(char* k, MMKeyCode *key, KeyNameToCodeMap kcm = DEFAULTROBOT)
 	}
 
 	if (strncmp(k, "Key", 3) == 0) {
-		*key = keyCodeForChar(*k);
+		*key = keyCodeForChar(k[3]);
 		return 0;
 	}
 
 	if (strncmp(k, "Digit", 5) == 0) {
-		*key = keyCodeForChar(*k);
+		*key = keyCodeForChar(k[5]);
 		return 0;
 	}
 
