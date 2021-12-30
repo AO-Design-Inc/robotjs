@@ -46,10 +46,11 @@
     "prebuild-install": "^5.3.3"
   },
   "devDependencies": {
-    "tape": "^4.8.0",
     "jasmine": "^2.99.0",
+    "mocha": "^9.1.3",
     "prebuild": "^9.1.1",
     "run-script-os": "^1.0.3",
+    "tape": "^4.8.0",
     "targetpractice": "0.0.7"
   }
 }

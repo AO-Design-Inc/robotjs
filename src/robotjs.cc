@@ -286,6 +286,87 @@ struct KeyNames
 	MMKeyCode   key;
 };
 
+static KeyNames w3c_key_names[] =
+{
+	{ "Backspace",      K_BACKSPACE },
+	{ "Delete",         K_DELETE },
+	{ "Enter",          K_RETURN },
+	{ "Tab",            K_TAB },
+	{ "Escape",         K_ESCAPE },
+	{ "ArrowUp",             K_UP },
+	{ "ArrowDown",           K_DOWN },
+	{ "ArrowRight",          K_RIGHT },
+	{ "ArrowLeft",           K_LEFT },
+	{ "Home",           K_HOME },
+	{ "End",            K_END },
+	{ "PageUp",         K_PAGEUP },
+	{ "PageDown",       K_PAGEDOWN },
+	{ "f1",             K_F1 },
+	{ "F2",             K_F2 },
+	{ "F3",             K_F3 },
+	{ "F4",             K_F4 },
+	{ "F5",             K_F5 },
+	{ "F6",             K_F6 },
+	{ "F7",             K_F7 },
+	{ "F8",             K_F8 },
+	{ "F9",             K_F9 },
+	{ "F10",            K_F10 },
+	{ "F11",            K_F11 },
+	{ "F12",            K_F12 },
+	{ "F13",            K_F13 },
+	{ "F14",            K_F14 },
+	{ "F15",            K_F15 },
+	{ "F16",            K_F16 },
+	{ "F17",            K_F17 },
+	{ "F18",            K_F18 },
+	{ "F19",            K_F19 },
+	{ "F20",            K_F20 },
+	{ "F21",            K_F21 },
+	{ "F22",            K_F22 },
+	{ "F23",            K_F23 },
+	{ "F24",            K_F24 },
+	{ "CapsLock",       K_CAPSLOCK },
+	{ "MetaLeft",       K_META },
+	{ "AltLeft",        K_ALT },
+	{ "AltRight",       K_RIGHT_ALT },
+	{ "ControlLeft",    K_LEFT_CONTROL },
+	{ "ControlRight",   K_RIGHT_CONTROL },
+	{ "ShiftLeft",      K_SHIFT },
+	{ "ShiftRight",     K_RIGHTSHIFT },
+	{ "Space",          K_SPACE },
+	{ "PrintScreen",    K_PRINTSCREEN },
+	{ "Insert",         K_INSERT },
+	{ "ContextMenu",    K_MENU },
+
+	{ "AudioVolumeMute",	K_AUDIO_VOLUME_MUTE },
+	{ "AudioVolumeDown",	K_AUDIO_VOLUME_DOWN },
+	{ "AudioVolumeUp",  	K_AUDIO_VOLUME_UP },
+	{ "MediaPlayPause", 	K_AUDIO_PLAY },
+	{ "MediaStop",      	K_AUDIO_STOP },
+	{ "Pause",          	K_AUDIO_PAUSE },
+	{ "MediaTrackNext", 	K_AUDIO_PREV },
+	{ "MediaTrackPrevious", K_AUDIO_NEXT },
+
+	{ "NumLock",	        K_NUMPAD_LOCK },
+	{ "Numpad0",		K_NUMPAD_0 },
+	{ "Numpad1",		K_NUMPAD_1 },
+	{ "Numpad2",		K_NUMPAD_2 },
+	{ "Numpad3",		K_NUMPAD_3 },
+	{ "Numpad4",		K_NUMPAD_4 },
+	{ "Numpad5",		K_NUMPAD_5 },
+	{ "Numpad6",		K_NUMPAD_6 },
+	{ "Numpad7",		K_NUMPAD_7 },
+	{ "Numpad8",		K_NUMPAD_8 },
+	{ "Numpad9",		K_NUMPAD_9 },
+	{ "NumpadAdd",		K_NUMPAD_PLUS },
+	{ "NumpadSubtract",	K_NUMPAD_MINUS },
+	{ "NumpadMultiply",	K_NUMPAD_MULTIPLY },
+	{ "NumpadDivide",	K_NUMPAD_DIVIDE },
+	{ "NumpadDecimal",	K_NUMPAD_DECIMAL },
+
+	{ NULL,               K_NOT_A_KEY } /* end marker */
+};
+
 static KeyNames key_names[] =
 {
 	{ "backspace",      K_BACKSPACE },
@@ -379,9 +460,21 @@ static KeyNames key_names[] =
 	{ NULL,               K_NOT_A_KEY } /* end marker */
 };
 
-int CheckKeyCodes(char* k, MMKeyCode *key)
+enum KeyNameToCodeMap {
+	DEFAULTROBOT,
+	W3C
+};
+
+/* IF key is digit or letter, use platform lib to get its keycode
+ * ELSE, look it up in supplied dict, and pass that code (which is defined in a platform
+ * 	specific manner in keycode.h in _MMKeyCode
+ * It'd make life a whole lot easier to just also define the damn ascii keycodes there rather
+ * than do this confusing dance, but this will do for now
+ * also note that KeyNameToCodeMap thing doesnt do anything rn*/
+int CheckKeyCodes(char* k, MMKeyCode *key, KeyNameToCodeMap kcm = DEFAULTROBOT)
 {
 	if (!key) return -1;
+
 
 	if (strlen(k) == 1)
 	{
@@ -389,9 +482,26 @@ int CheckKeyCodes(char* k, MMKeyCode *key)
 		return 0;
 	}
 
+	if (strncmp(k, "Key", 3) == 0) {
+		*key = keyCodeForChar(*k);
+		return 0;
+	}
+
+	if (strncmp(k, "Digit", 5) == 0) {
+		*key = keyCodeForChar(*k);
+		return 0;
+	}
+
+	if (strcmp(k, "Equal") == 0) {
+		*key = keyCodeForChar(*k);
+		return 0;
+	}
+
 	*key = K_NOT_A_KEY;
 
-	KeyNames* kn = key_names;
+	KeyNames* kn = w3c_key_names; //NOTE THESE ARE THE NEW KEYNAMES
+	//THERE IS CURRENTLY NO WAY TO TOGGLE BETWIXT THE DEFAULT
+	//AND THE NEW ONES, ASIDE FROM CHANGING THIS LINE
 	while (kn->name)
 	{
 		if (strcmp(k, kn->name) == 0)
