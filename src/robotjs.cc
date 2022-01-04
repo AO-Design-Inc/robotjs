@@ -327,10 +327,14 @@ static KeyNames w3c_key_names[] =
 	{ "F24",            K_F24 },
 	{ "CapsLock",       K_CAPSLOCK },
 	{ "MetaLeft",       K_META },
+	{ "Meta",       K_META },
 	{ "AltLeft",        K_ALT },
+	{ "Alt",        K_ALT },
 	{ "AltRight",       K_RIGHT_ALT },
+	{ "Control",    K_LEFT_CONTROL },
 	{ "ControlLeft",    K_LEFT_CONTROL },
 	{ "ControlRight",   K_RIGHT_CONTROL },
+	{ "Shift",      K_SHIFT },
 	{ "ShiftLeft",      K_SHIFT },
 	{ "ShiftRight",     K_RIGHTSHIFT },
 	{ "Space",          K_SPACE },
@@ -482,6 +486,7 @@ int CheckKeyCodes(char* k, MMKeyCode *key, KeyNameToCodeMap kcm = DEFAULTROBOT)
 		return 0;
 	}
 
+	/*
 	if (strncmp(k, "Key", 3) == 0) {
 		*key = keyCodeForChar(k[3]);
 		return 0;
@@ -496,6 +501,7 @@ int CheckKeyCodes(char* k, MMKeyCode *key, KeyNameToCodeMap kcm = DEFAULTROBOT)
 		*key = keyCodeForChar("=");
 		return 0;
 	}
+	*/
 
 	*key = K_NOT_A_KEY;
 
