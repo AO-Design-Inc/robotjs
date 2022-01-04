@@ -493,7 +493,7 @@ int CheckKeyCodes(char* k, MMKeyCode *key, KeyNameToCodeMap kcm = DEFAULTROBOT)
 	}
 
 	if (strcmp(k, "Equal") == 0) {
-		*key = keyCodeForChar(*k);
+		*key = keyCodeForChar("=");
 		return 0;
 	}
 
