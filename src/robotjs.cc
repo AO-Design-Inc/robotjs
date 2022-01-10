@@ -291,7 +291,7 @@ static KeyNames w3c_key_names[] =
 	{ "Backspace",      K_BACKSPACE },
 	{ "Delete",         K_DELETE },
 	{ "Enter",          K_RETURN },
-	{ "TabLeft",            K_TAB },
+	{ "Tab",            K_TAB },
 	{ "Escape",         K_ESCAPE },
 	{ "ArrowUp",             K_UP },
 	{ "ArrowDown",           K_DOWN },
@@ -325,7 +325,7 @@ static KeyNames w3c_key_names[] =
 	{ "F22",            K_F22 },
 	{ "F23",            K_F23 },
 	{ "F24",            K_F24 },
-	{ "CapsLockLeft",       K_CAPSLOCK },
+	{ "CapsLock",       K_CAPSLOCK },
 	{ "MetaLeft",       K_META },
 	{ "Meta",       K_META },
 	{ "AltLeft",        K_ALT },
@@ -732,7 +732,7 @@ NAN_METHOD(keyToggle)
 			break;
 		default:
 			toggleKeyCode(key, down,flags);
-			microsleep(keyboardDelay);
+			//microsleep(keyboardDelay);
 	}
 
 	info.GetReturnValue().Set(Nan::New(1));
