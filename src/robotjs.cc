@@ -351,7 +351,7 @@ static KeyNames w3c_key_names[] =
 	{ "MediaTrackNext", 	K_AUDIO_PREV },
 	{ "MediaTrackPrevious", K_AUDIO_NEXT },
 
-	{ "NumpadNumLock",	        K_NUMPAD_LOCK },
+	{ "NumLock",	        K_NUMPAD_LOCK },
 	{ "Numpad0",		K_NUMPAD_0 },
 	{ "Numpad1",		K_NUMPAD_1 },
 	{ "Numpad2",		K_NUMPAD_2 },
