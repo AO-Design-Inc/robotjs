@@ -486,7 +486,7 @@ enum Locator {
 #define MAX_PREFIX_LEN 6
 #define MAX_SUFFIX_LEN 5
 int CheckKeyCodes(char* k,
-		MMKeyCode *key, unsigned int location = 0,
+		MMKeyCode *key, enum Locator location = LOC_GENERAL,
 		KeyNameToCodeMap kcm = DEFAULTROBOT)
 {
 	if (!key) return -1;
@@ -667,6 +667,7 @@ NAN_METHOD(keyToggle)
 
 	bool down;
 	char *k;
+	enum Locator location = LOC_GENERAL;
 
 	//Get arguments from JavaScript.
 	Nan::Utf8String kstr(info[0]);
@@ -677,6 +678,9 @@ NAN_METHOD(keyToggle)
 	//Check and confirm number of arguments.
 	switch (info.Length())
 	{
+		case 4:
+			location = (enum Locator) info[3].As<Number>()->Value();
+			break;
 		case 3:
 			//Get key modifier.
 			switch (GetFlagsFromValue(info[2], &flags))
@@ -718,7 +722,7 @@ NAN_METHOD(keyToggle)
 	}
 
 	//Get the actual key.
-	switch(CheckKeyCodes(k, &key))
+	switch(CheckKeyCodes(k, &key, location))
 	{
 		case -1:
 			return Nan::ThrowError("Null pointer in key code.");
@@ -727,7 +731,7 @@ NAN_METHOD(keyToggle)
 			return Nan::ThrowError("Invalid key code specified.");
 			break;
 		default:
-			toggleKeyCode(key, down, flags);
+			toggleKeyCode(key, down,flags);
 			microsleep(keyboardDelay);
 	}
 
