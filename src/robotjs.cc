@@ -475,42 +475,61 @@ enum KeyNameToCodeMap {
  * It'd make life a whole lot easier to just also define the damn ascii keycodes there rather
  * than do this confusing dance, but this will do for now
  * also note that KeyNameToCodeMap thing doesnt do anything rn*/
-int CheckKeyCodes(char* k, MMKeyCode *key, KeyNameToCodeMap kcm = DEFAULTROBOT)
+
+enum Locator {
+	LOC_GENERAL,
+	LOC_LEFT,
+	LOC_RIGHT,
+	LOC_NUMPAD
+};
+
+#define MAX_PREFIX_LEN 6
+#define MAX_SUFFIX_LEN 5
+int CheckKeyCodes(char* k,
+		MMKeyCode *key, unsigned int location = 0,
+		KeyNameToCodeMap kcm = DEFAULTROBOT)
 {
 	if (!key) return -1;
 
 
-	if (strlen(k) == 1)
+	char suffix[MAX_SUFFIX_LEN+1] = "", prefix[MAX_PREFIX_LEN+1] = "";
+	switch(location) {
+		case LOC_GENERAL:
+			break;
+		case LOC_LEFT:
+			strcat(suffix, "Left");
+			break;
+		case LOC_RIGHT:
+			strcat(suffix, "Right");
+			break;
+		case LOC_NUMPAD:
+			strcat(prefix, "Numpad");
+	}
+
+	if (strlen(k) == 1 && location == LOC_GENERAL)
 	{
 		*key = keyCodeForChar(*k);
 		return 0;
 	}
 
-	/*
-	if (strncmp(k, "Key", 3) == 0) {
-		*key = keyCodeForChar(k[3]);
-		return 0;
-	}
+	//make map/dict/enum fr
 
-	if (strncmp(k, "Digit", 5) == 0) {
-		*key = keyCodeForChar(k[5]);
-		return 0;
-	}
 
-	if (strcmp(k, "Equal") == 0) {
-		*key = keyCodeForChar("=");
-		return 0;
-	}
-	*/
-
-	*key = K_NOT_A_KEY;
 
 	KeyNames* kn = w3c_key_names; //NOTE THESE ARE THE NEW KEYNAMES
 	//THERE IS CURRENTLY NO WAY TO TOGGLE BETWIXT THE DEFAULT
 	//AND THE NEW ONES, ASIDE FROM CHANGING THIS LINE
+	*key = K_NOT_A_KEY;
+
+	char compare_key[strlen(k)+MAX_SUFFIX_LEN+MAX_PREFIX_LEN+1];
+	strcat(compare_key, prefix);
+	strcat(compare_key, k);
+	strcat(compare_key, suffix);
+
 	while (kn->name)
 	{
-		if (strcmp(k, kn->name) == 0)
+
+		if (strcmp(compare_key, kn->name) == 0)
 		{
 			*key = kn->key;
 			break;
