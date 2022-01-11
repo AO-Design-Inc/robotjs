@@ -522,15 +522,15 @@ int CheckKeyCodes(char* k,
 	strcat(compare_key, prefix);
 	strcat(compare_key, k);
 	strcat(compare_key, suffix);
-	printf("\n");
-	printf(compare_key);
+	//printf("\n");
+	//printf(compare_key);
 
 	while (kn->name)
 	{
 
 		if (strncmp(compare_key, kn->name, strlen(kn->name)) == 0)
 		{
-			printf("Hello?");
+			//printf("Hello?");
 			*key = kn->key;
 			break;
 		}
@@ -732,7 +732,7 @@ NAN_METHOD(keyToggle)
 			break;
 		default:
 			toggleKeyCode(key, down,flags);
-			//microsleep(keyboardDelay);
+			microsleep(keyboardDelay);
 	}
 
 	info.GetReturnValue().Set(Nan::New(1));
