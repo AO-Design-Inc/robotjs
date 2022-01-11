@@ -525,8 +525,8 @@ int CheckKeyCodes(char* k,
 	strcat(compare_key, prefix);
 	strcat(compare_key, k);
 	strcat(compare_key, suffix);
-	printf("\n");
-	printf(compare_key);
+	//printf("\n");
+	//printf(compare_key);
 
 	while (kn->name)
 	{
