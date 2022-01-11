@@ -18,7 +18,7 @@ using namespace v8;
 
 //Global delays.
 int mouseDelay = 10;
-int keyboardDelay = 50;
+int keyboardDelay = 10;
 
 /*
  __  __
