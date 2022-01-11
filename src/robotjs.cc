@@ -521,7 +521,7 @@ int CheckKeyCodes(char* k,
 	//AND THE NEW ONES, ASIDE FROM CHANGING THIS LINE
 	*key = K_NOT_A_KEY;
 
-	char compare_key[strlen(k)+MAX_SUFFIX_LEN+MAX_PREFIX_LEN+1];
+	char compare_key[strlen(k)+MAX_SUFFIX_LEN+MAX_PREFIX_LEN+1] = "";
 	strcat(compare_key, prefix);
 	strcat(compare_key, k);
 	strcat(compare_key, suffix);
@@ -529,7 +529,7 @@ int CheckKeyCodes(char* k,
 	while (kn->name)
 	{
 
-		if (strcmp(compare_key, kn->name) == 0)
+		if (strncmp(compare_key, kn->name, strlen(kn->name)) == 0)
 		{
 			*key = kn->key;
 			break;
