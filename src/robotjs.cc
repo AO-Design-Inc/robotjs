@@ -341,7 +341,6 @@ static KeyNames w3c_key_names[] =
 	{ "PrintScreen",    K_PRINTSCREEN },
 	{ "Insert",         K_INSERT },
 	{ "ContextMenu",    K_MENU },
-
 	{ "AudioVolumeMute",	K_AUDIO_VOLUME_MUTE },
 	{ "AudioVolumeDown",	K_AUDIO_VOLUME_DOWN },
 	{ "AudioVolumeUp",  	K_AUDIO_VOLUME_UP },
@@ -350,7 +349,6 @@ static KeyNames w3c_key_names[] =
 	{ "Pause",          	K_AUDIO_PAUSE },
 	{ "MediaTrackNext", 	K_AUDIO_PREV },
 	{ "MediaTrackPrevious", K_AUDIO_NEXT },
-
 	{ "NumLock",	        K_NUMPAD_LOCK },
 	{ "Numpad0",		K_NUMPAD_0 },
 	{ "Numpad1",		K_NUMPAD_1 },
@@ -367,7 +365,6 @@ static KeyNames w3c_key_names[] =
 	{ "NumpadMultiply",	K_NUMPAD_MULTIPLY },
 	{ "NumpadDivide",	K_NUMPAD_DIVIDE },
 	{ "NumpadDecimal",	K_NUMPAD_DECIMAL },
-
 	{ NULL,               K_NOT_A_KEY } /* end marker */
 };
 
@@ -525,14 +522,15 @@ int CheckKeyCodes(char* k,
 	strcat(compare_key, prefix);
 	strcat(compare_key, k);
 	strcat(compare_key, suffix);
-	//printf("\n");
-	//printf(compare_key);
+	printf("\n");
+	printf(compare_key);
 
 	while (kn->name)
 	{
 
 		if (strncmp(compare_key, kn->name, strlen(kn->name)) == 0)
 		{
+			printf("Hello?");
 			*key = kn->key;
 			break;
 		}
