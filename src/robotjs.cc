@@ -482,6 +482,7 @@ enum Locator {
 
 #define MAX_PREFIX_LEN 6
 #define MAX_SUFFIX_LEN 5
+#define MAX_KEY_LEN 17 //length of HiraganaKatakana
 int CheckKeyCodes(char* k,
 		MMKeyCode *key, enum Locator location = LOC_GENERAL,
 		KeyNameToCodeMap kcm = DEFAULTROBOT)
@@ -518,7 +519,7 @@ int CheckKeyCodes(char* k,
 	//AND THE NEW ONES, ASIDE FROM CHANGING THIS LINE
 	*key = K_NOT_A_KEY;
 
-	char compare_key[strlen(k)+MAX_SUFFIX_LEN+MAX_PREFIX_LEN+1] = "";
+	char compare_key[MAX_KEY_LEN+MAX_SUFFIX_LEN+MAX_PREFIX_LEN+1] = "";
 	strcat(compare_key, prefix);
 	strcat(compare_key, k);
 	strcat(compare_key, suffix);
